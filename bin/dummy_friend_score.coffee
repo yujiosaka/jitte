@@ -1,4 +1,3 @@
-#!/usr/bin/env coffee
 'use strict'
 
 graph    = require 'fbgraph'

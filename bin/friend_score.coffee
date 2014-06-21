@@ -1,4 +1,3 @@
-#!/usr/bin/env coffee
 'use strict'
 
 config   = require 'ynconf'
