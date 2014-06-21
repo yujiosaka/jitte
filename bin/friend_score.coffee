@@ -1,10 +1,7 @@
 #!/usr/bin/env coffee
 'use strict'
 
-graph    = require 'fbgraph'
-async    = require 'async'
 config   = require 'ynconf'
-
 mongo    = require 'mongo'
 
 
@@ -14,8 +11,14 @@ user = config.graph_api.user
 for friend in user.friends
   friend.score = friend.average + Math.floor((Math.random() - 0.5) * 40)
 
-user_score = new mongo.FriendScore user
-user_score.save (err) ->
+mongo.FriendScore.update
+  id: user.id
+,
+  name: user.name
+  friends: user.friends
+,
+  upsert: true
+, (err) ->
   if err
     console.log err
     process.exit 1

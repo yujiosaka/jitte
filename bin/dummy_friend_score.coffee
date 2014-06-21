@@ -33,16 +33,13 @@ graph.get "#{user.id}/friends", (err, res) ->
         mutual_friends : res.data
         score          : Math.floor(Math.random() * 100)
   , (err, friends) ->
-    mongo.FriendScore.update
+    user_score = new mongo.FriendScore
       id       : user.id
-    ,
       name     : user.name
       friends  : friends
       start_at : start_at
       end_at   : end_at
-    ,
-      upsert : true
-    , (err) ->
+    user_score.save (err) ->
       if err
         console.log err
         process.exit 1
